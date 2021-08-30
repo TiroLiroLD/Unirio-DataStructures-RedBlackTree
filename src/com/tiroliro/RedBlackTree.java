@@ -30,6 +30,7 @@ class RedBlackTree<Key extends Comparable<Key>, Value> implements OrderedSymbolT
             this.size = 1; // ADICIONADO: Necessario para implementacao dos metodos adicionais, tamanho da arvore inicia em 1
             this.height = height(this); // ADICIONADO: altura
             this.blackHeight = blackHeight(this); // ADICIONADO: altura (nós pretos)
+            this.balance = balance(this); // ADICIONADO: balance (altura sae - altura sad)
         }
     }
 
@@ -112,6 +113,7 @@ class RedBlackTree<Key extends Comparable<Key>, Value> implements OrderedSymbolT
 
         blackHeight(node);
         height(root);
+        balance(node);
         return node;
     }
 
@@ -121,7 +123,22 @@ class RedBlackTree<Key extends Comparable<Key>, Value> implements OrderedSymbolT
         node.height = Math.max(height(node.leftSubtree), height(node.rightSubtree)) + 1;
         return node.height;
     }
+
+    private int balance(Node node) {
+        if (node == null)
+            return 0;
+        node.balance = height(node.leftSubtree) - height(node.rightSubtree);
+        if (node.leftSubtree != null)
+            balance(node.leftSubtree);
+        if (node.rightSubtree != null)
+            balance(node.rightSubtree);
+        return node.balance;
+    }
+
     private int blackHeight(Node node) {
+        if (node == null)
+            return -1;
+
         if (node.rightSubtree == null && node.leftSubtree == null)
             node.blackHeight = 0;
 
@@ -464,6 +481,9 @@ class RedBlackTree<Key extends Comparable<Key>, Value> implements OrderedSymbolT
     }
 
     // ==================== TRABALHO 2 ====================
+    public boolean isBST() {
+        return isBST(this.root, null, null);
+    }
 
     private boolean isBST(Node node, Key min, Key max) {
         if (node == null) {
@@ -479,31 +499,47 @@ class RedBlackTree<Key extends Comparable<Key>, Value> implements OrderedSymbolT
             return (isBST(node.leftSubtree, min, node.key) && isBST(node.rightSubtree, node.key, max));
     }
 
-    public boolean isBST() {
-        return isBST(this.root, null, null);
-    }
-
-    private boolean isBalanced(Node node, int countBlackNodes) {
-
-        return isBalanced();
-    }
-
-    public boolean isBalanced() {
-        int countBlackNodes = 0;
-        if (this.root.color != Node.BLACK) {
-            return false;
-        }
-        return isBalanced(this.root, countBlackNodes);
-    }
-
     public boolean isRedBlackTree() {
         // TODO: TRABALHO 2
-        return true;
+        return isRedBlackTree(root);
+    }
+
+    private boolean isRedBlackTree(Node node){
+        if (node == null)
+            return true;
+
+        if (node.leftSubtree != null)
+            if (!isRedBlackTree(node.leftSubtree))
+                return false;
+        if (node.rightSubtree != null)
+            if (!isRedBlackTree(node.rightSubtree))
+                return false;
+
+        return blackHeight(node.leftSubtree) == blackHeight(node.rightSubtree);
     }
 
     public boolean isAVL() {
-        // TODO: TRABALHO 2
-        return true;
+        return isAVL(root);
+    }
+
+    private boolean isAVL(Node node){
+        /**
+         * Verifica recursivamente se todos os Node estão balanceados
+         * altura(sae) — altura(sad) ≤ 1
+         * Se ao menos um nó não estiver balanceado, retornamos {@false}.
+         */
+        if (node == null)
+            return true;
+
+        if (node.leftSubtree != null)
+            if (!isAVL(node.leftSubtree))
+                return false;
+
+        if (node.rightSubtree != null)
+            if (!isAVL(node.rightSubtree))
+                return false;
+
+        return node.balance <= 1;
     }
 
     // Metodo privado escreverEstrutura, que eh chamado do metodo publico repr
@@ -546,18 +582,33 @@ class RedBlackTree<Key extends Comparable<Key>, Value> implements OrderedSymbolT
         return escreverEstrutura(this.root); // Realiza a chamada do metodo privado a partir do Node raiz
     }
 
-    public void height(){
-        printHeights(root);
+    public void balance() {
+        printBalance(root);
     }
 
-    private void printHeights(Node node) {
+    private void printBalance(Node node) {
         if (node == null)
             return;
 
         if (node.leftSubtree != null)
-            printHeights(node.leftSubtree);
+            printBalance(node.leftSubtree);
         if (node.rightSubtree != null)
-            printHeights(node.rightSubtree);
+            printBalance(node.rightSubtree);
+        System.out.println(node.key + " balance: " + node.balance);
+    }
+
+    public void printHeights() {
+        printHeight(root);
+    }
+
+    private void printHeight(Node node) {
+        if (node == null)
+            return;
+
+        if (node.leftSubtree != null)
+            printHeight(node.leftSubtree);
+        if (node.rightSubtree != null)
+            printHeight(node.rightSubtree);
         System.out.println(node.key + ": " + node.height);
     }
 }

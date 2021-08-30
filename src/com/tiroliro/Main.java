@@ -19,55 +19,81 @@ class Main {
 		}*/
 
 		RedBlackTree<Integer,Integer> treeTeste = new RedBlackTree<>();
-		System.out.println("Insercao de nos:");
-		treeTeste.put(15, 15);
+
+		treeTeste.put(15, 15);/*
 		System.out.println(treeTeste.repr());
-		System.out.println(treeTeste.isBST());
-		treeTeste.height();
+		System.out.println(treeTeste.isRedBlackTree());
+		treeTeste.balance();*/
+
+		System.out.println();
 		treeTeste.put(7, 7);
+/*
 		System.out.println(treeTeste.repr());
-		System.out.println(treeTeste.isBST());
-		treeTeste.height();
+		System.out.println(treeTeste.isRedBlackTree());
+		treeTeste.balance();
+*/
+
+		System.out.println();
 		treeTeste.put(27, 27);
+/*
 		System.out.println(treeTeste.repr());
-		System.out.println(treeTeste.isBST());
-		treeTeste.height();
+		System.out.println(treeTeste.isRedBlackTree());
+		treeTeste.balance();
+*/
+
+		System.out.println();
 		treeTeste.put(18, 18);
+/*
 		System.out.println(treeTeste.repr());
-		System.out.println(treeTeste.isBST());
-		treeTeste.height();
+		System.out.println(treeTeste.isRedBlackTree());
+		treeTeste.balance();
+*/
+
+		System.out.println();
 		treeTeste.put(25, 25);
 		System.out.println(treeTeste.repr());
-		System.out.println(treeTeste.isBST());
-		treeTeste.height();
+		System.out.println(treeTeste.isRedBlackTree());
+		treeTeste.balance();
+/*
+		System.out.println();
 		treeTeste.put(2, 2);
 		System.out.println(treeTeste.repr());
-		System.out.println(treeTeste.isBST());
-		treeTeste.height();
+		System.out.println(treeTeste.isRedBlackTree());
+		treeTeste.balance();
+
+		System.out.println();
 		treeTeste.put(5, 5);
 		System.out.println(treeTeste.repr());
-		System.out.println(treeTeste.isBST());
-		treeTeste.height();
+		System.out.println(treeTeste.isRedBlackTree());
+		treeTeste.balance();
+
+		System.out.println();
 		treeTeste.put(13, 13);
 		System.out.println(treeTeste.repr());
-		System.out.println(treeTeste.isBST());
-		treeTeste.height();
+		System.out.println(treeTeste.isRedBlackTree());
+		treeTeste.balance();
+
+		System.out.println();
 		treeTeste.put(11, 11);
 		System.out.println(treeTeste.repr());
-		System.out.println(treeTeste.isBST());
-		treeTeste.height();
+		System.out.println(treeTeste.isRedBlackTree());
+		treeTeste.balance();
+
+		System.out.println();
 		treeTeste.put(9, 9);
 		System.out.println(treeTeste.repr());
-		System.out.println(treeTeste.isBST());
-		treeTeste.height();
+		System.out.println(treeTeste.isRedBlackTree());
+		treeTeste.balance();
+
+		System.out.println();
 		treeTeste.put(8, 8);
 		System.out.println(treeTeste.repr());
-		System.out.println(treeTeste.isBST());
-		treeTeste.height();
-		System.out.println();
-		System.out.println("min = " + treeTeste.min());
+		System.out.println(treeTeste.isRedBlackTree());
+		treeTeste.balance();
 
-		treeTeste.height();
+		System.out.println();
+
+		System.out.println("min = " + treeTeste.min());*/
 
 		/*
 
