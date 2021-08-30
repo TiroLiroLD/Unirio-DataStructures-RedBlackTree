@@ -15,6 +15,7 @@ class RedBlackTree<Key extends Comparable<Key>, Value> implements OrderedSymbolT
         public Node leftSubtree;
         public Node rightSubtree;
         public int height;
+        public int blackHeight;
         // TODO: TRABALHO 2
         public int balance;
         public int size; // ADICIONADO: tamanho da sub�rvore enraizada em Node
@@ -27,7 +28,8 @@ class RedBlackTree<Key extends Comparable<Key>, Value> implements OrderedSymbolT
             this.val = val;
             this.color = color;
             this.size = 1; // ADICIONADO: Necessario para implementacao dos metodos adicionais, tamanho da arvore inicia em 1
-            this.height = 0; // ADICIONADO: altura
+            this.height = height(this); // ADICIONADO: altura
+            this.blackHeight = blackHeight(this); // ADICIONADO: altura (nós pretos)
         }
     }
 
@@ -108,21 +110,28 @@ class RedBlackTree<Key extends Comparable<Key>, Value> implements OrderedSymbolT
             flipColors(node);
         }
 
-        updateHeight(node);
+        blackHeight(node);
+        height(root);
         return node;
     }
 
-    private int updateHeight(Node node) {
+    private int height(Node node) {
+        if (node == null)
+            return -1;
+        node.height = Math.max(height(node.leftSubtree), height(node.rightSubtree)) + 1;
+        return node.height;
+    }
+    private int blackHeight(Node node) {
         if (node.rightSubtree == null && node.leftSubtree == null)
-            node.height = 0;
+            node.blackHeight = 0;
 
         if (node.rightSubtree != null)
-            node.height = updateHeight(node.rightSubtree) + 1;
+            node.blackHeight = blackHeight(node.rightSubtree) + 1;
 
         if (node.leftSubtree != null)
-            updateHeight(node.leftSubtree);
+            blackHeight(node.leftSubtree);
 
-        return node.height;
+        return node.blackHeight;
     }
 
     public void put(Key key, Value val) {
@@ -535,5 +544,20 @@ class RedBlackTree<Key extends Comparable<Key>, Value> implements OrderedSymbolT
     // Metodo implementado da interface, usado para retornar uma representação da estrutura da árvore na forma de uma string
     public String repr() {
         return escreverEstrutura(this.root); // Realiza a chamada do metodo privado a partir do Node raiz
+    }
+
+    public void height(){
+        printHeights(root);
+    }
+
+    private void printHeights(Node node) {
+        if (node == null)
+            return;
+
+        if (node.leftSubtree != null)
+            printHeights(node.leftSubtree);
+        if (node.rightSubtree != null)
+            printHeights(node.rightSubtree);
+        System.out.println(node.key + ": " + node.height);
     }
 }
